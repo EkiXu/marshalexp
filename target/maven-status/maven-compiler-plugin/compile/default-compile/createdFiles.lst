@@ -1,0 +1,14 @@
+xyz\eki\marshalexp\utils\SerializeUtils.class
+xyz\eki\marshalexp\memshell\MSpringController.class
+xyz\eki\marshalexp\poc\Rome.class
+xyz\eki\marshalexp\sink\jdk\GJdbcRowSetImpl.class
+xyz\eki\marshalexp\gadget\rome\GRome.class
+xyz\eki\marshalexp\memshell\MTomcatJNIServlet.class
+xyz\eki\marshalexp\poc\POC.class
+xyz\eki\marshalexp\utils\MiscUtils.class
+xyz\eki\marshalexp\gadget\jdk\GSignedObject.class
+xyz\eki\marshalexp\memshell\MSpringJNIController.class
+xyz\eki\marshalexp\sink\jdk\GTemplates.class
+xyz\eki\marshalexp\gadget\jdk\GHashMap.class
+xyz\eki\marshalexp\utils\ReflectUtils.class
+xyz\eki\marshalexp\utils\SerializeUtils$NoWriteReplaceSerializerFactory.class

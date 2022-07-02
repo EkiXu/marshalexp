@@ -4,6 +4,8 @@ import com.caucho.hessian.io.*;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import org.apache.commons.configuration.ConfigurationException;
+import org.nibblesec.tools.SerialKiller;
 import org.objenesis.strategy.StdInstantiatorStrategy;
 
 import java.io.*;
@@ -48,11 +50,30 @@ public class SerializeUtils {
         return bos.toByteArray();
     }
 
+    public static void serialize(Object o,String outPath) throws Exception{
+        FileOutputStream fos = new FileOutputStream(outPath);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(o);
+        oos.close();
+        fos.close();
+        return;
+    }
+
     public static Object deserialize(byte[] bytes) throws Exception{
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
         ObjectInputStream ois = new ObjectInputStream(bis);
         bis.close();
         ois.close();
+        return ois.readObject();
+    }
+
+    public static Object deserialize(String binFile,String killerLocation) throws Exception {
+        ObjectInputStream ois = new SerialKiller(new FileInputStream(binFile), killerLocation);
+        return ois.readObject();
+    }
+
+    public static Object deserialize(byte[] bytes,String killerLocation) throws Exception {
+        ObjectInputStream ois = new SerialKiller(new ByteArrayInputStream(bytes), killerLocation);
         return ois.readObject();
     }
 

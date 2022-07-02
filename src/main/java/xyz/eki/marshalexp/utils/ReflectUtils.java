@@ -1,5 +1,6 @@
 package xyz.eki.marshalexp.utils;
 
+import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 
 public class ReflectUtils {
@@ -53,4 +54,9 @@ public class ReflectUtils {
             return field.get(object);
         }
     }
+
+//    public static void setAccessible(AccessibleObject member) {
+//        // quiet runtime warnings from JDK9+
+//        Permit.setAccessible(member);
+//    }
 }

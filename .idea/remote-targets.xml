@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <targets>
+      <target name="root@buptmerak.cn:22" type="ssh/sftp" uuid="47a50c93-0952-4ada-bcf6-e28d3aaa39bb">
+        <config>
+          <option name="projectRootOnTarget" value="/container/tools/marshalexp" />
+          <option name="serverName" value="root@buptmerak.cn:22 agent" />
+          <option name="useRsync" value="true" />
+        </config>
+        <ContributedStateBase type="JavaLanguageRuntime">
+          <config>
+            <option name="javaVersionString" value="1.8.0_292" />
+          </config>
+        </ContributedStateBase>
+      </target>
+    </targets>
+  </component>
+</project>

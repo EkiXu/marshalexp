@@ -1,2 +1,5 @@
-package xyz.eki.marshalexp.aspectj;public class GAspectj {
+package xyz.eki.marshalexp.aspectj;
+
+public class GAspectj {
+
 }

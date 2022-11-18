@@ -9,6 +9,7 @@ import org.nibblesec.tools.SerialKiller;
 import org.objenesis.strategy.StdInstantiatorStrategy;
 
 import java.io.*;
+import java.util.Base64;
 
 public class SerializeUtils {
     public static class NoWriteReplaceSerializerFactory extends SerializerFactory {
@@ -38,6 +39,10 @@ public class SerializeUtils {
             }
             return serializer;
         }
+
+    }
+
+    public static class HessianLiteNoWriteReplaceSerializerFactory extends com.alibaba.com.caucho.hessian.io.SerializerFactory {
 
     }
 
@@ -130,5 +135,30 @@ public class SerializeUtils {
         return kryo.readClassAndObject(input);
     }
 
+    public static Object serializeKillerDeserialize(byte[] bytes,String configPath) throws Exception{
+        ObjectInputStream ois = new SerialKiller(new ByteArrayInputStream(bytes), configPath);
+        return ois.readObject();
+    }
+
+    public static Object hessianLiteDeserialize(byte[] bytes) throws Exception{
+        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+        com.alibaba.com.caucho.hessian.io.AbstractHessianInput ahi = new com.alibaba.com.caucho.hessian.io.Hessian2Input(bis);
+        return ahi.readObject();
+    }
+
+    public static byte[] hessianLiteSerialize(Object o) throws Exception{
+//        ByteArrayOutputStream os = new ByteArrayOutputStream();
+//        AbstractHessianOutput out = new Hessian2Output(os);
+//        out.writeObject(o);
+//        return os.toByteArray();
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        com.alibaba.com.caucho.hessian.io.AbstractHessianOutput out = new com.alibaba.com.caucho.hessian.io.Hessian2Output(bos);
+        //HessianLiteNoWriteReplaceSerializerFactory sf = new HessianLiteNoWriteReplaceSerializerFactory();
+        //sf.setAllowNonSerializable(true);
+        //out.setSerializerFactory(sf);
+        out.writeObject(o);
+        out.close();
+        return bos.toByteArray();
+    }
 
 }

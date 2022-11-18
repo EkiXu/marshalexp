@@ -9,7 +9,7 @@ import java.security.*;
  * getter-> readObject
  */
 public class GSignedObject {
-    public static java.security.SignedObject getSignedObject2Deserialize(byte[] serialBytes) throws Exception{
+    public static java.security.SignedObject getter2Deserialize(byte[] serialBytes) throws Exception{
 //Create a key
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA", "SUN");
         SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
@@ -27,7 +27,7 @@ public class GSignedObject {
         return so;
     }
 
-    public static java.security.SignedObject getSignedObject2Deserialize(Object poc) throws Exception{
+    public static java.security.SignedObject getter2Deserialize(Object poc) throws Exception{
 
 //Create a key
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA", "SUN");

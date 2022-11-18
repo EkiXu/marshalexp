@@ -9,7 +9,7 @@ import java.lang.reflect.Constructor;
  * v trigger hashcode
  */
 public class GHashMap {
-    public static java.util.HashMap<Object, Object> getMap2HashCode (Object v1, Object v2 ) throws Exception {
+    public static java.util.HashMap<Object, Object> deserialize2HashCode(Object v1, Object v2 ) throws Exception {
         java.util.HashMap<Object, Object> s = new java.util.HashMap<>();
         ReflectUtils.setFieldValue(s, "size", 2);
         Class<?> nodeC;

@@ -3,11 +3,20 @@ package xyz.eki.marshalexp.utils;
 import javassist.ClassPool;
 import javassist.CtClass;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MiscUtils {
+
+    public static String getLocalTime(){
+        Date d = new Date();
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(d);
+    }
     public static String randomString(int len){
         Random rnd = ThreadLocalRandom.current();
         StringBuilder ret = new StringBuilder();
@@ -43,5 +52,18 @@ public class MiscUtils {
         cc.defrost();
         cc.detach();
         return res;
+    }
+
+
+    public static String bytes2HexString(byte[] bytes) {
+        StringBuffer ret = new StringBuffer();
+        for (int i = 0; i < bytes.length; i++) {
+            String hex = Integer.toHexString(bytes[i] & 0xFF);
+            if (hex.length() == 1) {
+                hex = '0' + hex;
+            }
+            ret.append(hex.toUpperCase());
+        }
+        return ret.toString();
     }
 }

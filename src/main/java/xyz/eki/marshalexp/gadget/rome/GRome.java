@@ -20,19 +20,19 @@ public class GRome {
         return eb;
     }
 
-    public static Object toString2Getter(Object o){
+    public static ObjectBean toString2Getter(Object o){
 //        ToStringBean tb = new ToStringBean(clz, o);
 //        EqualsBean eb = new EqualsBean(ToStringBean.class, tb);
         return toString2Getter(o.getClass(),o);
     }
 
-    public static com.sun.syndication.feed.impl.ToStringBean toString2GetterSynd(Class<?> clz,Object o){
+    public static com.sun.syndication.feed.impl.EqualsBean toString2GetterSynd(Class<?> clz,Object o){
         com.sun.syndication.feed.impl.ToStringBean tb = new com.sun.syndication.feed.impl.ToStringBean(clz,o);
-        com.sun.syndication.feed.impl.ToStringBean eb = new com.sun.syndication.feed.impl.ToStringBean(com.sun.syndication.feed.impl.ToStringBean.class,tb);
+        com.sun.syndication.feed.impl.EqualsBean eb = new com.sun.syndication.feed.impl.EqualsBean(com.sun.syndication.feed.impl.ToStringBean.class,tb);
         return eb;
     }
 
-    public static com.sun.syndication.feed.impl.ToStringBean toString2GetterSynd(Object o){
+    public static com.sun.syndication.feed.impl.EqualsBean  toString2GetterSynd(Object o){
         return toString2GetterSynd(o.getClass(),o);
     }
 }

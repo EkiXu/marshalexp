@@ -1,6 +1,8 @@
 package xyz.eki.marshalexp.utils;
 
 import com.nqzero.permit.Permit;
+import sun.misc.Unsafe;
+import sun.print.UnixPrintServiceLookup;
 import sun.reflect.ReflectionFactory;
 
 import java.beans.BeanInfo;
@@ -144,6 +146,12 @@ public class ReflectUtils {
         }
     }
 
+    public static Object forceNewInstance(Class<?> clazz) throws Exception{
+        Field theUnsafe = Unsafe.class.getDeclaredField("theUnsafe");
+        theUnsafe.setAccessible(true);
+        Unsafe unsafe = (Unsafe) theUnsafe.get(null);
+        return unsafe.allocateInstance(clazz);
+    }
 
 //    public static void setAccessible(AccessibleObject member) {
 //        // quiet runtime warnings from JDK9+
